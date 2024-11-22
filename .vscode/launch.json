@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Application<Application>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "hochschulsport_timetable.Application.Application",
+            "projectName": "Application",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
