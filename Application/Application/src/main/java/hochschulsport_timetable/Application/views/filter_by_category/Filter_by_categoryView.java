@@ -15,8 +15,13 @@ import com.vaadin.flow.component.tabs.TabSheet;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
+
+import hochschulsport_timetable.Application.views.about.AboutView;
+import hochschulsport_timetable.Application.views.custom_timetable.Custom_timetableView;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 @PageTitle("Filter_by_category")
@@ -33,6 +38,10 @@ public class Filter_by_categoryView extends Composite<VerticalLayout> {
         Grid basicGrid = new Grid();
         TabSheet tabSheet = new TabSheet();
         HorizontalLayout layoutRow = new HorizontalLayout();
+        RouterLink customTimeTableRouterLink = new RouterLink("Custom Time Table", Custom_timetableView.class);
+        RouterLink aboutRouterLink = new RouterLink("About", AboutView.class);
+        RouterLink courseRouterLink = new RouterLink("Course", Custom_timetableView.class);
+        RouterLink timeTableRouterLink = new RouterLink("Time Table", Custom_timetableView.class);
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
         layoutColumn2.setWidth("100%");
@@ -62,6 +71,10 @@ public class Filter_by_categoryView extends Composite<VerticalLayout> {
         layoutColumn2.add(basicGrid);
         layoutColumn2.add(tabSheet);
         getContent().add(layoutRow);
+        layoutRow.add(aboutRouterLink);
+        layoutRow.add(courseRouterLink);
+        layoutRow.add(customTimeTableRouterLink);
+        layoutRow.add(timeTableRouterLink);
     }
 
     private void setMenuBarSampleData(MenuBar menuBar) {

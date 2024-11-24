@@ -1,0 +1,22 @@
+.timetable-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.timetable {
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+.time-slot {
+    font-size: 12px;
+    padding: 5px;
+    background: #f9f9f9;
+}
+
+.event {
+    font-size: 12px;
+    color: #000;
+    display: block;
+}

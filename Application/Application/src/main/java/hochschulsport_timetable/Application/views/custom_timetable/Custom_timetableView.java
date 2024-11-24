@@ -15,6 +15,13 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
+
+import hochschulsport_timetable.Application.views.about.AboutView;
+import hochschulsport_timetable.Application.views.course.CourseView;
+import hochschulsport_timetable.Application.views.filter_by_category.Filter_by_categoryView;
+import hochschulsport_timetable.Application.views.time_table.Time_tableView;
+
+import java.nio.file.DirectoryStream.Filter;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +38,13 @@ public class Custom_timetableView extends Composite<VerticalLayout> {
         Grid multiSelectGrid = new Grid();
         Button buttonPrimary = new Button();
         HorizontalLayout layoutRow = new HorizontalLayout();
-        RouterLink routerLink = new RouterLink();
-        RouterLink routerLink2 = new RouterLink();
-        RouterLink routerLink3 = new RouterLink();
-        RouterLink routerLink4 = new RouterLink();
+        RouterLink filterByCategoryRouterLink = new RouterLink("Filter by category", Filter_by_categoryView.class);
+        RouterLink aboutRouterLink = new RouterLink("About", AboutView.class);
+        RouterLink courseRouterLink = new RouterLink("Course", CourseView.class);
+        RouterLink timeTableRouterLink = new RouterLink("Time Table", Time_tableView.class);
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
-        h1.setText("Heading");
+        h1.setText("Custom Timetable");
         h1.setWidth("max-content");
         layoutColumn2.setWidth("100%");
         layoutColumn2.getStyle().set("flex-grow", "1");
@@ -53,24 +60,17 @@ public class Custom_timetableView extends Composite<VerticalLayout> {
         layoutRow.addClassName(Gap.MEDIUM);
         layoutRow.setWidth("100%");
         layoutRow.setHeight("min-content");
-        routerLink.setText("Custom View");
-        routerLink.setRoute(Custom_timetableView.class);
-        routerLink2.setText("Custom View");
-        routerLink2.setRoute(Custom_timetableView.class);
-        routerLink3.setText("Custom View");
-        routerLink3.setRoute(Custom_timetableView.class);
-        routerLink4.setText("Custom View");
-        routerLink4.setRoute(Custom_timetableView.class);
+
         getContent().add(h1);
         getContent().add(layoutColumn2);
         layoutColumn2.add(multiSelectComboBox);
         layoutColumn2.add(multiSelectGrid);
         layoutColumn2.add(buttonPrimary);
         getContent().add(layoutRow);
-        layoutRow.add(routerLink);
-        layoutRow.add(routerLink2);
-        layoutRow.add(routerLink3);
-        layoutRow.add(routerLink4);
+        layoutRow.add(aboutRouterLink);
+        layoutRow.add(courseRouterLink);
+        layoutRow.add(filterByCategoryRouterLink);
+        layoutRow.add(timeTableRouterLink);
     }
 
     record SampleItem(String value, String label, Boolean disabled) {
