@@ -16,6 +16,7 @@ import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 
 import hochschulsport_timetable.Application.Modules.TimetableEvent;
+import hochschulsport_timetable.Application.Modules.Week;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -31,24 +32,45 @@ public class Time_tableView extends Composite<VerticalLayout> {
 
     public Time_tableView() {
 
-        addClassName("timetable-container");
+        
 
         Div timetable = new Div();
         timetable.addClassName("timetable");
+        
+        //timetable.addClassName("timetable-container");
         getContent().add(timetable);
-
-        Div timeSlot = new Div();
-        timeSlot.addClassName("time-slot");
-        timeSlot.setText("08:00 - 09:00");
-        timetable.add(timeSlot);
-
-        Div event = new Div();
-        event.addClassName("event");
-        event.setText("Morning Yoga");
-        timetable.add(event);
 
         H1 h1 = new H1();
         VerticalLayout layoutColumn2 = new VerticalLayout();
+
+        
+        List<TimetableEvent> events = generateSampleEvents();
+
+        HorizontalLayout timeTableColumnsLayout = new HorizontalLayout();
+        timetable.add(timeTableColumnsLayout);
+
+        // =================Time slots=================
+        List<String> timeSlots = generateTimeSlots();
+        Div timeSlotColumn = createTimeSlotColumn(timeSlots);
+
+        timeTableColumnsLayout.add(timeSlotColumn);
+
+        
+        // =================content columns=================
+        Div contentBox = createContentBox();
+                
+        timeTableColumnsLayout.add(contentBox);
+
+        List<Div> columns = createTimeTableColumns();
+        for (Div column : columns) {
+            contentBox.add(column);
+        }
+
+
+        for (TimetableEvent timetableEvent : events) {
+            timetable.add(createEventComponent(timetableEvent));
+        }
+
         TabSheet tabSheet = new TabSheet();
         Grid basicGrid = new Grid();
         HorizontalLayout layoutRow = new HorizontalLayout();
@@ -79,6 +101,15 @@ public class Time_tableView extends Composite<VerticalLayout> {
         tabSheet.add("Shipping", new Div(new Text("This is the Shipping tab content")));
     }
 
+    private Div createTimeSlotColumn(List<String> timeSlots){
+        Div column = new Div();
+        column.addClassName("time-slot-column");
+        column.getStyle().set("border-right", "1px solid #ccc");
+        for (String timeSlot : timeSlots) {
+            column.add(createTimeSlotRow(timeSlot));
+        }
+        return column;
+    }
     
     private Div createTimeSlotRow(String time) {
         Div row = new Div();
@@ -88,6 +119,43 @@ public class Time_tableView extends Composite<VerticalLayout> {
         row.getStyle().set("border-bottom", "1px solid #ccc");
         row.getStyle().set("height", "60px"); // Height for each time slot (e.g., 1 hour)
         return row;
+    }
+
+    private void addEventToTimetable(Div timetable, TimetableEvent event) {
+        Div eventDiv = new Div();
+        eventDiv.addClassName("event");
+        eventDiv.setText(event.getName());
+        timetable.add(eventDiv);
+    }
+
+    private Div createContentBox(){
+        Div contentBox = new Div();
+        contentBox.addClassName("content-box");
+        contentBox.getStyle().set("border", "1px solid #ccc");
+        contentBox.getStyle().set("background-color", "#f5f5f5");
+        contentBox.getStyle().set("padding", "10px");
+        return contentBox;
+    }
+
+    private Div createContentColumn(String day) {
+        Div column = new Div();
+        column.addClassName("content-column");
+        column.getStyle().set("text", day);
+        column.setTitle(day);
+        column.setText(day);
+        column.getStyle().set("position", "relative");
+        column.getStyle().set("border-right", "1px solid #ccc");
+        return column;
+    }
+
+    private List<Div> createTimeTableColumns(){
+        Week week = new Week();
+        List<Div> columns = new ArrayList<>();
+        for (String day : week.DAYS) {
+            Div column = createContentColumn(day);
+            columns.add(column);
+        }
+        return columns;
     }
 
     private Div createEventComponent(TimetableEvent event) {
@@ -134,8 +202,8 @@ public class Time_tableView extends Composite<VerticalLayout> {
     private List<TimetableEvent> generateSampleEvents() {
         List<TimetableEvent> events = new ArrayList<>();
         events.add(new TimetableEvent("Morning Yoga", "Monday", "07:00", "08:30"));
-        events.add(new TimetableEvent("Team Meeting", "Tuesday", "10:15", "11:45"));
-        events.add(new TimetableEvent("Lunch Break", "Monday", "12:00", "13:00"));
+        events.add(new TimetableEvent("Badminton", "Tuesday", "10:15", "11:45"));
+        events.add(new TimetableEvent("Fussball", "Wendsday", "12:00", "13:30"));
         return events;
     }
 

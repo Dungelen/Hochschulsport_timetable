@@ -1,5 +1,8 @@
 package hochschulsport_timetable.Application.Modules;
 
+import lombok.Getter;
+
+@Getter
 public class TimetableEvent {
     private String name;       // Event name
     private String day;        // Day of the week
@@ -13,19 +16,4 @@ public class TimetableEvent {
         this.endTime = endTime;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDay() {
-        return day;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
 }
