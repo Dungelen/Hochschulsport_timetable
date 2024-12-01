@@ -22,12 +22,15 @@
 }
 
 .content-column {
-    display: inline-block;
-    width: 14.2857%;
-    vertical-align: top;
+    flex: 1 !important; /* All columns take equal width */
     border-right: 1px solid #ccc;
+    text-align: center; /* Center align text inside columns */
     padding: 0;
     margin: 0;
+    height: 100%; /* Ensure columns fill the height of the parent */
+    min-width: 0; /* Prevent overflowing issues */
+    box-sizing: border-box; /* Include padding and border in the width */
+    text-align: center; /* Align text inside the column */
 }
 
 .time-slot-column {
@@ -41,10 +44,12 @@
 }
 
 .content-box {
-    position: relative;
-    width: 80%;
-    left: 20%;
-    border: #000 1px solid;
-    height: 100%;
-    overflow: hidden;
+    display: flex !important; /* Use Flexbox for horizontal alignment */
+    width: 100%; /* Ensure the box spans the entire width */
+    height: 100%; /* Adjust as needed */
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    padding: 0; /* Remove padding to avoid extra space */
+    flex-direction: row !important; /* Ensure items are side by side */
+    flex-wrap: nowrap; /* Prevent wrapping */
 }
