@@ -14,7 +14,6 @@ import com.vaadin.flow.dom.Style.BoxSizing;
 import com.vaadin.flow.dom.Style.Display;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 
 import hochschulsport_timetable.Application.Modules.TimetableEvent;
@@ -25,8 +24,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 @PageTitle("Time_table")
 @Route("time_table")
@@ -39,16 +36,23 @@ public class Time_tableView extends Composite<VerticalLayout> {
 
     public Time_tableView() {
 
-        
+
+        TabSheet tabSheet = new TabSheet();
+        Grid basicGrid = new Grid();
+        HorizontalLayout layoutRow = new HorizontalLayout();
+        getContent().setWidth("100%");
+        getContent().getStyle().set("flex-grow", "1");
 
         Div timetable = new Div();
         timetable.addClassName("timetable");
         timetable.setWidth("90%");
         
-        //timetable.addClassName("timetable-container");
-        getContent().add(timetable);
+
 
         H1 h1 = new H1();
+        h1.setText("Time Table");
+        h1.setWidth("max-content");
+
         VerticalLayout layoutColumn2 = new VerticalLayout();
 
         
@@ -83,16 +87,9 @@ public class Time_tableView extends Composite<VerticalLayout> {
                     addEventToContentColumn(column, eventComponent);
                 }
             contentBox.add(column);
-        }
+            }
         }
 
-        TabSheet tabSheet = new TabSheet();
-        Grid basicGrid = new Grid();
-        HorizontalLayout layoutRow = new HorizontalLayout();
-        getContent().setWidth("100%");
-        getContent().getStyle().set("flex-grow", "1");
-        h1.setText("Heading");
-        h1.setWidth("max-content");
         layoutColumn2.setWidth("100%");
         layoutColumn2.getStyle().set("flex-grow", "1");
         tabSheet.setWidth("100%");
@@ -104,6 +101,8 @@ public class Time_tableView extends Composite<VerticalLayout> {
         layoutRow.setWidth("100%");
         layoutRow.setHeight("min-content");
         getContent().add(h1);
+        //timetable.addClassName("timetable-container");
+        getContent().add(timetable);
         getContent().add(layoutColumn2);
         layoutColumn2.add(tabSheet);
         layoutColumn2.add(basicGrid);
@@ -133,6 +132,7 @@ public class Time_tableView extends Composite<VerticalLayout> {
         row.getStyle().set("position", "relative");
         row.getStyle().set("border-bottom", "1px solid #ccc");
         row.getStyle().set("height", "60px"); // Height for each time slot (e.g., 1 hour)
+        row.getStyle().set("text-align", "center");
         return row;
     }
 
@@ -170,10 +170,9 @@ public class Time_tableView extends Composite<VerticalLayout> {
     }
 
     private List<Div> createTimeTableColumns(){
-        Week week = new Week();
         List<Div> columns = new ArrayList<>();
         Integer i = 1;
-        for (String day : week.DAYS) {
+        for (String day : Week.DAYS) {
             Div column = createContentColumn(day, i);
             i++;
             columns.add(column);
@@ -217,7 +216,7 @@ public class Time_tableView extends Composite<VerticalLayout> {
         long durationMinutes = endMinutes - startMinutes;
 
         // Convert to CSS percentages
-        double startPercent = (startMinutes / getTotalMinutesDay()) * 100; // 1440 = total minutes in a day
+        double startPercent = (startMinutes / getTotalMinutesDay()) * 100;
         double durationPercent = (durationMinutes / getTotalMinutesDay()) * 100;
 
         // Apply positioning and size
@@ -245,9 +244,8 @@ public class Time_tableView extends Composite<VerticalLayout> {
         List<TimetableEvent> events = new ArrayList<>();
         events.add(new TimetableEvent("Morning Yoga", Week.FRIDAY, "07:00", "08:30"));
         events.add(new TimetableEvent("Badminton", Week.MONDAY, "10:15", "11:45"));
-        events.add(new TimetableEvent("Fussball", Week.WEDNESDAY, "12:00", "13:30"));
-        
-        events.add(new TimetableEvent("Fussball", Week.WEDNESDAY, "08:00", "09:30"));
+        events.add(new TimetableEvent("Fussball 1", Week.WEDNESDAY, "08:00", "09:30"));
+        events.add(new TimetableEvent("Fussball 2", Week.WEDNESDAY, "12:00", "13:30"));
         return events;
     }
 
