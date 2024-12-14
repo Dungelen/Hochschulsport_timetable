@@ -13,6 +13,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import hochschulsport_timetable.Application.Modules.Course;
 import hochschulsport_timetable.Application.Modules.DayInfo;
+import hochschulsport_timetable.Application.Modules.RequestProperties;
+import io.micrometer.core.ipc.http.HttpSender.Request;
 
 @Service
 public class HochschulsportAPIFetcher {
@@ -60,12 +62,12 @@ public class HochschulsportAPIFetcher {
             connection.setRequestMethod("GET");
 
             // Set request headers
-            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:131.0) Gecko/20100101 Firefox/131.0");
-            connection.setRequestProperty("Accept", "application/json, text/plain, */*");
-            connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-            connection.setRequestProperty("Origin", "https://www.hochschulsport-koeln.de");
-            connection.setRequestProperty("Referer", "https://www.hochschulsport-koeln.de/");
-            connection.setRequestProperty("DNT", "1");
+            connection.setRequestProperty("User-Agent", RequestProperties.USER_AGENT);
+            connection.setRequestProperty("Accept", RequestProperties.ACCEPT);
+            connection.setRequestProperty("Accept-Language", RequestProperties.ACCEPT_LANGUAGE);
+            connection.setRequestProperty("Origin", RequestProperties.ORIGIN);
+            connection.setRequestProperty("Referer", RequestProperties.REFERER);
+            connection.setRequestProperty("DNT", RequestProperties.DNT);
 
             Course course = new Course();
 
