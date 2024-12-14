@@ -1,5 +1,6 @@
 package hochschulsport_timetable.Application.Modules;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -7,7 +8,7 @@ import lombok.Getter;
 @Getter
 public class Hochschulsport_API {
 
-    List<API_Course> apiCourses;
+    List<API_Course> apiCourses = new ArrayList<API_Course>();
 
     public API_Course createAPICourse(String courseName, String courseUrl) {
         API_Course apiCourse = new API_Course();
@@ -17,11 +18,11 @@ public class Hochschulsport_API {
     }
 
     public void addAPICourse(API_Course apiCourse) {
-        apiCourses.add(apiCourse);
+        this.apiCourses.add(apiCourse);
     }
 
     public void removeAPICourse(API_Course apiCourse) {
-        apiCourses.remove(apiCourse);
+        this.apiCourses.remove(apiCourse);
     }
 
     private void fillAPICourses(){
@@ -34,7 +35,7 @@ public class Hochschulsport_API {
     }
 
     public API_Course getAPIByName(String name) {
-        for (API_Course apiCourse : apiCourses) {
+        for (API_Course apiCourse : this.apiCourses) {
             if (apiCourse.Name.equals(name)) {
                 return apiCourse;
             }

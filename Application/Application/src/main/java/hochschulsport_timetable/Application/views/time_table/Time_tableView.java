@@ -55,8 +55,7 @@ public class Time_tableView extends Composite<VerticalLayout> {
 
         VerticalLayout layoutColumn2 = new VerticalLayout();
 
-        
-        List<TimetableEvent> events = generateSampleEvents();
+
 
         HorizontalLayout timeTableColumnsLayout = new HorizontalLayout();
         timetable.add(timeTableColumnsLayout);
@@ -76,7 +75,8 @@ public class Time_tableView extends Composite<VerticalLayout> {
 
 
         List<Div> columns = createTimeTableColumns();
-
+                
+        List<TimetableEvent> events = generateSampleEvents();
         
         for (Div column : columns) {
             String title = column.getTitle().orElse("null");
